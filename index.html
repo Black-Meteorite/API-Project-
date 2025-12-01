@@ -97,7 +97,7 @@
                 success: function(response){
                     if(response){
                         var background = $(".viewer");
-                        background.css("background", `url("${response.url}")`);
+                        background.css("background-image", `url("${response.url}")`);
                         displayMessage(response.explanation);
                     } else {
                         displayMessage("The media for the selected date is not an image.");
