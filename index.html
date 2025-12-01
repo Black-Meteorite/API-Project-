@@ -74,4 +74,37 @@
         cursor: pointer;
     }
 </style> 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type ="text/javascript">
+    $(document).ready(function(){
+        const apiKey = "vyXuxC7cWzcG31GRFAuWWLw2jTTRb8IKuQInMTHw"; 
+        function displayMessage(message){
+            $(".description").html(message);
+        }
+        $("#get_Btn").click(function(){
+            var date=$("#dateIn").val();
+            if(!date){
+                displayMessage("Please select a date.");
+                return;
+            }
+            let apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`;
+            $.ajax({
+                url: apiUrl,
+                method: "GET",
+                success: function(response){
+                    if(response){
+                        var background = $(".viewer");
+                        background.css("background", `url("${response.url}")`);
+                        displayMessage(response.explanation);
+                    } else {
+                        displayMessage("The media for the selected date is not an image.");
+                    }
+                },
+                error: function(response){
+                    displayMessage("Error fetching data. Please try again later.");
+                }
+            });
+        });
+    });
+</script>
 </body>
